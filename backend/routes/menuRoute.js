@@ -6,7 +6,18 @@ import { isAuth, isAdmin } from '../util';
 const router = express.Router();
 
 router.get("/", async (req,res)=> {
-  const menus = await Menu.find({});
+  const type = req.query.type ? { type: req.query.type} : {};
+  const searchKeyword = req.query.searchKeyword ? {
+    name: {
+      $regex: req.query.searchKeyword,
+      $options: 'i'
+    }
+  } : {};
+  const sortOrder = req.query.sortOrder? req.query.sortOrder === 'lowest' 
+  ? {price: 1} 
+  : {price: -1}
+  :{_id: -1};
+  const menus = await Menu.find({...type, ...searchKeyword});
   res.send(menus);
 });
 

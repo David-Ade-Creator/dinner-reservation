@@ -30,6 +30,7 @@ function RouterPage(){
     <Route path="/productadmin" component={ProductAdmin} exact/>
     <Route path="/orderadmin" component={OrderAdmin} exact/>
     <Route path="/meals" component={MealPage} exact/>
+    <Route path="/type/:id" component={MealPage} exact/>
     <Route path="/table/:id" component={Productdetails} exact />
     <Route path="/menu/:id" component={Menudetails} exact />
     <Route path="/order/:id" component={OrderDetails} exact />

@@ -13,6 +13,7 @@ function Menudetails(props) {
   const [qty,setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const [size,setSize] = useState('1')
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -96,7 +97,7 @@ function Menudetails(props) {
       </div>
       <div className="mt-4 col-lg-6 col-md-6 offset-md-1 offset-lg-1">
         <h5 className="text-center">Customer Reviews</h5>
-        {menu.reviews.map((review) => (
+        {menu.reviews.slice(0, size).map((review) => (
           <div key={review._id}>
           <h5>{review.name}</h5>
           <div>
@@ -110,6 +111,10 @@ function Menudetails(props) {
           </div>
         </div>
         ))}
+        <div className="showreview">
+        <span onClick={() => setSize(size + 1)}>Show more</span>
+        {size > 2 && <span onClick={() => setSize(size - 1)}>Show less</span> }
+        </div>
       </div>
       </div>
 

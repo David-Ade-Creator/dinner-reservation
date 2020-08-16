@@ -50,10 +50,19 @@ const deleteMenu = (menuId) => async (dispatch, getState) => {
     }
 }
 
-const listMenu = () => async (dispatch) => {
+const listMenu = (
+  type = '', 
+  searchKeyword = '', 
+  sortOrder = ''
+  ) => async (dispatch) => {
     try {
         dispatch({type: MENU_LIST_REQUEST});
-    const {data} = await Axios.get("/api/menus/");
+    const {data} = await Axios.get(
+      "/api/menus?type=" + 
+      type + "&searchKeyword=" + 
+      searchKeyword + "&sortOrder=" + 
+      sortOrder
+      );
     dispatch({type: MENU_LIST_SUCCESS, payload: data});
     } catch (error) {
         dispatch({type: MENU_LIST_FAIL, payload: error.message});
