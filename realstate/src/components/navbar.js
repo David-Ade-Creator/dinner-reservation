@@ -1,63 +1,75 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
-MDBNavbar, MDBNavbarBrand,MDBBtn, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
+MDBNavbar, MDBNavbarBrand,MDBBtn, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse,
 MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
 } from "mdbreact";
 import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../actions/userActions";
 
-class NavbarPage extends Component {
-state = {
-  isOpen: false
-};
+function NavbarPage(){
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
 
-toggleCollapse = () => {
-  this.setState({ isOpen: !this.state.isOpen });
+  const userSignin = useSelector(state => state.userSignin);
+  const { userInfo } = userSignin;
+
+const toggleCollapse = () => {
+  setIsOpen( !isOpen );
 }
 
+const logoutHandler = () => {
+  dispatch(logout())
+}
 
-render() {
   return (
       <MDBNavbar color="orange" dark expand="md">
         <MDBNavbarBrand>
           <strong className="white-text"><Link to="/" className="clause">CLAUSE</Link></strong>
         </MDBNavbarBrand>
-        <MDBNavbarToggler onClick={this.toggleCollapse} />
-        <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+        <MDBNavbarToggler onClick={toggleCollapse} />
+        <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
           <MDBNavbarNav left>
             <MDBNavItem active>
-              <MDBNavLink to="/tables">Tables</MDBNavLink>
+              <MDBNavLink  onClick={toggleCollapse} to="/tables">Tables</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="/meals">Meals</MDBNavLink>
+              <MDBNavLink onClick={toggleCollapse} to="/type/meal">Meals</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink  onClick={toggleCollapse} to="/type/drink">Drinks</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
               <MDBDropdown>
                 <MDBDropdownToggle nav caret>
-                  <span className="mr-2">Profile</span>
+                  <span className="mr-2">{userInfo ? userInfo.name : 'Profile' }</span>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  <MDBDropdownItem href="/profile">Account</MDBDropdownItem>
-                  <MDBDropdownItem href="/reservations/:id?">Checklist</MDBDropdownItem>
-                  <MDBDropdownItem href="/profile#order">Reservation</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Settings</MDBDropdownItem>
-                  <MDBDropdownItem><MDBBtn color="orange">Logout</MDBBtn></MDBDropdownItem>
+                  <MDBDropdownItem  onClick={toggleCollapse} href="/profile">Account</MDBDropdownItem>
+                  <MDBDropdownItem  onClick={toggleCollapse} href="/reservations/:id?">Checklist</MDBDropdownItem>
+                  <MDBDropdownItem  onClick={toggleCollapse} href="/profile#order">Reservation</MDBDropdownItem>
+                  <MDBDropdownItem  onClick={toggleCollapse} href="#!">Settings</MDBDropdownItem>
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
+            <MDBNavItem>
+            { userInfo && userInfo.isAdmin && <MDBNavLink  onClick={toggleCollapse} to="/productadmin">Admin</MDBNavLink> }
+            </MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>
-          <MDBNavItem>
-              <MDBNavLink to="/signup">Signup</MDBNavLink>
+         <MDBNavItem>
+         { !userInfo &&  <MDBNavLink  onClick={toggleCollapse} to="/signup">Signup</MDBNavLink> }
             </MDBNavItem>
             <MDBNavItem>
-              <MDBNavLink to="/signin">Login</MDBNavLink>
+            { !userInfo &&    <MDBNavLink  onClick={toggleCollapse} to="/signin">Login</MDBNavLink> }
+            </MDBNavItem>
+            <MDBNavItem>
+            { userInfo && <MDBBtn color="orange" onClick={logoutHandler} >Logout</MDBBtn> }
             </MDBNavItem>
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
     );
-  }
 }
 
 export default NavbarPage;

@@ -39,7 +39,6 @@ router.post("/", isAuth, async (req, res) => {
     payment: req.body.payment,
     itemsPrice: req.body.itemsPrice,
     taxPrice: req.body.taxPrice,
-    shippingPrice: req.body.shippingPrice,
     totalPrice: req.body.totalPrice,
   });
   const newOrderCreated = await newOrder.save();

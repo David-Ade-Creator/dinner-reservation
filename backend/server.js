@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import config from './config';
 import mongoose from 'mongoose';
 import userRoute from './routes/userRoute';
+import tableRoute from './routes/tableRoute';
 import menuRoute from './routes/menuRoute';
 import orderRoute from './routes/orderRoute';
 import uploadRoute from './routes/uploadRoute';
@@ -21,6 +22,7 @@ mongoose.connect(mongodbUrl, {
 const app = express();
 app.use(bodyParser.json());
 app.use("/api/uploads", uploadRoute);
+app.use("/api/tables", tableRoute);
 app.use("/api/users", userRoute);
 app.use("/api/menus", menuRoute);
 app.use("/api/orders", orderRoute);
@@ -47,9 +49,9 @@ app.get("/api/tables/:id", (req,res) => {
     res.status(404).send({msg: "Tables Not Found"})
 });
 
-app.get("/api/tables", (req,res) => {
-    res.send(data.products);
-});
+//app.get("/api/tables", (req,res) => {
+//    res.send(data.products);
+//});
 
 app.listen(8000, () => {
     console.log("server started at http://localhost:8000")

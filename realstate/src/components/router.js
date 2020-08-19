@@ -3,8 +3,8 @@ import {Route,Switch} from 'react-router-dom';
 
 
 import Homepage from '../pages/homepage';
-import ProductPage from '../pages/productlist';
-import Productdetails from '../pages/productdetail';
+import TablePage from '../pages/tablelist';
+import Tabledetails from '../pages/tabledetail';
 import Register from '../pages/signuppage';
 import Login from '../pages/signinpage';
 import Reservation from '../pages/reservation ';
@@ -17,29 +17,35 @@ import OrderDetails from '../pages/orderDetails';
 import Profile from '../pages/profile';
 import Edituser from '../pages/edituser';
 import OrderAdmin from '../pages/orderdmin';
+import { useSelector } from 'react-redux';
+import TableAdmin from '../pages/tableadmin';
 
 
 
 
 function RouterPage(){
+  const userSignin = useSelector(state => state.userSignin);
+  const { userInfo } = userSignin;
+
   return (
     <>
     <Switch>
     <Route path="/" component={Homepage} exact />
-    <Route path="/tables" component={ProductPage} exact/>
-    <Route path="/productadmin" component={ProductAdmin} exact/>
-    <Route path="/orderadmin" component={OrderAdmin} exact/>
+    <Route path="/tables" component={TablePage} exact/>
+    {userInfo && userInfo.isAdmin && <Route path="/productadmin" component={ProductAdmin} exact/> }
+  {userInfo && userInfo.isAdmin && <Route path="/orderadmin" component={OrderAdmin} exact/> }
+  {userInfo && userInfo.isAdmin && <Route path="/tableadmin" component={TableAdmin} exact/> }
     <Route path="/meals" component={MealPage} exact/>
     <Route path="/type/:id" component={MealPage} exact/>
-    <Route path="/table/:id" component={Productdetails} exact />
+    <Route path="/table/:id" component={Tabledetails} exact />
     <Route path="/menu/:id" component={Menudetails} exact />
-    <Route path="/order/:id" component={OrderDetails} exact />
+  {userInfo &&  <Route path="/order/:id" component={OrderDetails} exact /> }
     <Route path="/signup" component={Register} exact />
     <Route path="/signin" component={Login} exact />
-    <Route path="/payment" component={Payment} exact />
-    <Route path="/placeorder" component={PlaceOrder} exact />
-    <Route path="/profile" component={Profile} exact />
-    <Route path="/edit-user" component={Edituser} exact />
+  {userInfo && <Route path="/payment" component={Payment} exact /> }
+  {userInfo && <Route path="/placeorder" component={PlaceOrder} exact /> }
+  {userInfo &&  <Route path="/profile" component={Profile} exact /> }
+  {userInfo &&  <Route path="/edit-user" component={Edituser} exact /> }
     <Route path="/reservations/:id?" component={Reservation} exact />
     </Switch>
     </>

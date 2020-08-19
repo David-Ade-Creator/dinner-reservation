@@ -17,9 +17,8 @@ if (!cart.payment.paymentMethod) {
   props.history.push("/payment");
 }
 const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-const shippingPrice = itemsPrice > 100 ? 0 : 10;
 const taxPrice = 0.15 * itemsPrice;
-const totalPrice = itemsPrice + shippingPrice + taxPrice;
+const totalPrice = itemsPrice + taxPrice;
 
 const dispatch = useDispatch();
 
@@ -27,7 +26,7 @@ const dispatch = useDispatch();
 const placeOrderHandler = () => {
   // create an order
   dispatch(createOrder({
-   orderItems: cartItems, payment, itemsPrice, shippingPrice,
+   orderItems: cartItems, payment, itemsPrice,
     taxPrice, totalPrice
   }));
 }
@@ -55,8 +54,11 @@ useEffect(() => {
           cartItems.map( item =>
             <div key={item.product} className="col-lg-6 mt-3 mb-3">
             <div className="row">
-              <div className="col-lg-5 col-md-5 col-sm-5 col-5">
+              <div className={ item.date ? 'col-lg-12':"col-lg-10 col-md-5 col-sm-5 col-5"}>
                 <img src={item.image} width="100%" height="150px" alt="No photo"/>
+              </div>
+              <div className="col-lg-12">
+              { item.date && <h6>Reservation Date:{item.date}</h6>}
               </div>
               <div className="col-lg-7 col-md-7 col-sm-7 col-7">
               <h6>Name:{item.name}</h6>
@@ -73,7 +75,6 @@ useEffect(() => {
           {cartItems.length > 0 ? <div className="row mt-5">
             <div className="col-lg-12 col-md-12 col-sm-12 col-12">
               <h6>TotalPrice: ${itemsPrice}</h6>
-              <h6>Shipping Fee:${shippingPrice}</h6>
               <h6>Tax: ${taxPrice}</h6>
               <br/>
                 <h6>TotalPrice: ${totalPrice} </h6>

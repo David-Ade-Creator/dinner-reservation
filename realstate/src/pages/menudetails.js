@@ -96,7 +96,7 @@ function Menudetails(props) {
       {!menu.reviews.length && <h5 className="text-center">There is no review</h5>}
       </div>
       <div className="mt-4 col-lg-6 col-md-6 offset-md-1 offset-lg-1">
-        <h5 className="text-center">Customer Reviews</h5>
+    {menu.reviews.length > 0 && <h5 className="text-center">Customer Reviews</h5> }
         {menu.reviews.slice(0, size).map((review) => (
           <div key={review._id}>
           <h5>{review.name}</h5>
@@ -111,10 +111,10 @@ function Menudetails(props) {
           </div>
         </div>
         ))}
-        <div className="showreview">
+       {menu.reviews.length > 0 && <div className="showreview">
         <span onClick={() => setSize(size + 1)}>Show more</span>
         {size > 2 && <span onClick={() => setSize(size - 1)}>Show less</span> }
-        </div>
+        </div>}
       </div>
       </div>
 

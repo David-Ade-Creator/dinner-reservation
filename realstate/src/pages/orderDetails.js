@@ -65,7 +65,7 @@ function OrderDetails  (props) {
         order.orderItems.map( item =>
             <div key={item.product} className="col-lg-10 col-md-10 mt-3 mb-3">
             <div className="row">
-              <div className="col-lg-5 col-md-5 col-sm-5 col-5">
+              <div  className={item.date ? 'col-lg-12' : "col-lg-5 col-md-5 col-sm-5 col-5"}>
                 <img src={item.image} width="100%" height="150px" alt="No photo"/>
               </div>
               <div className="col-lg-7 col-md-7 col-sm-7 col-7">

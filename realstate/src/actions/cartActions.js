@@ -2,6 +2,27 @@ import Cookie from "js-cookie";
 const { CART_ADD_ITEM,CART_REMOVE_ITEM, CART_SAVE_PAYMENT  } = require("../constants/cartConstants");
 const { default: Axios } = require("axios")
 
+const reserveTable = (productId,date) => async (dispatch, getState) =>{
+    try {
+        const {data} = await Axios.get("/api/tables/" + productId);
+        dispatch({type : CART_ADD_ITEM , payload:{
+            product: data._id,
+            name: data.name,
+            image: data.image,
+            price: data.price,
+            category: data.type,
+            countInStock:data.countInStock,
+            qty: 1,
+            date
+        } });
+
+        const {cart:{cartItems}} = getState();
+        Cookie.set("cartItems",JSON.stringify(cartItems));
+
+    } catch (error) {
+        
+    }
+}
 
 const addToCart = (productId,qty) => async (dispatch, getState) =>{
     try {
@@ -11,9 +32,9 @@ const addToCart = (productId,qty) => async (dispatch, getState) =>{
             name: data.name,
             image: data.image,
             price: data.price,
-            category: data.category,
+            category: data.type,
             countInStock:data.countInStock,
-            qty
+            qty,
         } });
 
         const {cart:{cartItems}} = getState();
@@ -35,4 +56,4 @@ const savePayment = (data) => (dispatch) => {
     dispatch({ type: CART_SAVE_PAYMENT, payload: data });
   }
 
-export {addToCart,removeFromCart,savePayment}
+export {reserveTable,addToCart,removeFromCart,savePayment}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead,MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCol,MDBInput } from 'mdbreact';
 import { useSelector, useDispatch } from 'react-redux';
-import { saveMenu, listMenu, deleteMenu } from '../actions/menuActions';
 import Axios from 'axios';
+import { saveTable, deleteTable, listTables } from '../actions/tableActions';
 
-function ProductAdmin  (props) {
+function TableAdmin  (props) {
     const [modal,setModal] = useState(false);
     const [id, setId] = useState('');
     const [name,setName] = useState('');
@@ -18,45 +18,45 @@ function ProductAdmin  (props) {
 
     
 
-    const menuList = useSelector(state =>state.menuList);
-    const {loading,menus,error} =  menuList;
+    const tableList = useSelector(state =>state.tableList);
+    const {loading,tables,error} =  tableList;
 
-    const menuSave = useSelector((state)=>state.menuSave);
-    const {  success: successSave } = menuSave;
+    const tableSave = useSelector((state)=>state.tableSave);
+    const {  success: successSave } = tableSave;
 
-      const menuDelete = useSelector((state)=>state.menuSave);
-    const { success: successDelete } = menuDelete;
+      const tableDelete = useSelector((state)=>state.tableSave);
+    const { success: successDelete } = tableDelete;
 
       useEffect(() => {
           if(successSave){
             setModal(false);
           };
-          dispatch(listMenu());
+          dispatch(listTables());
         return () => {
           //
         };
       }, [successSave,successDelete]);
 
-      const deleteHandler = (menu) => {
-        dispatch(deleteMenu(menu._id));
+      const deleteHandler = (table) => {
+        dispatch(deleteTable(table._id));
       };
 
 
-      const openModal = (menu) => {
+      const openModal = (table) => {
         setModal(true);
-        setId(menu._id);
-        setName(menu.name);
-        setPrice(menu.price);
-        setDescription(menu.description);
-        setImage(menu.image);
-        setType(menu.type);
-        setCountInStock(menu.countInStock);
+        setId(table._id);
+        setName(table.name);
+        setPrice(table.price);
+        setDescription(table.description);
+        setImage(table.image);
+        setType(table.type);
+        setCountInStock(table.countInStock);
       };
 
       const submitHandler = (e) => {
         e.preventDefault();
         dispatch(
-          saveMenu({
+          saveTable({
             _id: id,
             name,
             price,
@@ -141,11 +141,11 @@ function ProductAdmin  (props) {
           <MDBCol>
     <MDBCard>
       <MDBCardBody>
-        <MDBCardTitle>List Of Products</MDBCardTitle>
+        <MDBCardTitle>List Of Tables</MDBCardTitle>
         <MDBTable>
       <MDBTableHead color="orange" textWhite>
         <tr>
-          <th>Product ID</th>
+          <th>Table ID</th>
           <th>Name</th>
           <th>InStock</th>
           <th>Price</th>
@@ -155,14 +155,14 @@ function ProductAdmin  (props) {
       </MDBTableHead>
       <MDBTableBody>
   { loading ? <div>loading...</div> : error ? <div>{error}</div> :
-          menus.map((menu) =>(
-          <tr key={menu._id}>
-          <td>{menu._id}</td>
-          <td>{menu.name}</td>
-          <td>{menu.countInStock}</td>
-          <td>{menu.price}</td>
-          <td><MDBBtn onClick={()=>openModal(menu)} color="orange">Edit</MDBBtn></td>
-          <td><MDBBtn onClick={()=>deleteHandler(menu)} color="orange">Delete</MDBBtn></td>
+          tables.map((table) =>(
+          <tr key={table._id}>
+          <td>{table._id}</td>
+          <td>{table.name}</td>
+          <td>{table.countInStock}</td>
+          <td>{table.price}</td>
+          <td><MDBBtn onClick={()=>openModal(table)} color="orange">Edit</MDBBtn></td>
+          <td><MDBBtn onClick={()=>deleteHandler(table)} color="orange">Delete</MDBBtn></td>
         </tr>
         ))}
       </MDBTableBody>
@@ -175,4 +175,4 @@ function ProductAdmin  (props) {
   );
 }
 
-export default ProductAdmin;
+export default TableAdmin;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {  MDBBtn } from 'mdbreact';
-import { addToCart, removeFromCart } from '../actions/cartActions';
+import {reserveTable, addToCart, removeFromCart } from '../actions/cartActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -10,11 +10,18 @@ const cart = useSelector(state =>state.cart);
 const {cartItems} = cart;
  const productId = props.match.params.id;
  const qty =  props.location.search? Number(props.location.search.split("=")[1]):1;
+ const date =  props.location.search? (props.location.search.split("=")[1]):1;
  const dispatch = useDispatch();
 
  const removeFromCartHandler = (productId) => {
    dispatch(removeFromCart(productId));
  }
+
+ useEffect(() =>{
+  if(productId){
+    dispatch(reserveTable(productId, date));
+  }
+ }, [])
 
  useEffect(() =>{
   if(productId && qty){
@@ -36,22 +43,25 @@ const {cartItems} = cart;
           cartItems.map( item =>
             <div key={item.product} className="col-lg-6 mt-3 mb-3">
             <div className="row">
-              <div className="col-lg-5 col-md-5 col-sm-5 col-5">
+              <div className={ item.date ? 'col-lg-12':"col-lg-5 col-md-5 col-sm-5 col-5"}>
                 <img src={item.image} width="100%" height="150px" alt={item.name}/>
               </div>
               <div className="col-lg-7 col-md-7 col-sm-7 col-7">
               <h6>Name:{item.name}</h6>
               <h6>Price:{item.price}</h6>
               <h6>Category:{item.category}</h6>
-                <h6>Qty: <select value={item.qty} onChange={(e)=> dispatch(addToCart(item.product, e.target.value))}>
+               {item.date ? '' : <h6>Qty: <select value={item.qty} onChange={(e)=> dispatch(addToCart(item.product, e.target.value))}>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
-                  </select></h6>
+          </select></h6> }
               </div>
             </div>
             <div className="row">
+            <div className="col-lg-12">
+            { item.date && <h6>Reservation Date:{item.date}</h6>}
+            </div>
             <div className="col-lg-5 col-md-5 col-sm-5 col-5">
             <MDBBtn onClick={()=>removeFromCartHandler(item.product)} color="orange" >
                       Remove
