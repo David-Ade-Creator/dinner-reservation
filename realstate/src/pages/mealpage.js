@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MDBCardBody, MDBCardImage, MDBBtn, MDBInput } from 'mdbreact';
+import { MDBCardBody, MDBCardImage, MDBBtn } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { listMenu } from '../actions/menuActions';
@@ -15,13 +15,14 @@ function MealPage(props) {
   const menuList = useSelector(state=>state.menuList);
   const {menus, loading, error} = menuList;
   const dispatch = useDispatch();
+  
 
   useEffect(() =>{
     dispatch(listMenu(type))
     return () => {
       //
     };
-  }, [type])
+  }, [dispatch,type])
 
  const submitHandler = (e) => {
    e.preventDefault();

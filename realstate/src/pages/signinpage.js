@@ -33,7 +33,7 @@ function Login(props) {
   return () => {
    //
   };
-}, [userInfo]);
+}, [props.history,userInfo,redirect]);
 
 const submithandler = (e) =>{
   e.preventDefault();

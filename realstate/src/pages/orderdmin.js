@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead,MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCol,MDBInput } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead,MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCol } from 'mdbreact';
 import { useSelector, useDispatch } from 'react-redux';
 import {listOrders,deleteOrder} from '../actions/orderActions';
 
@@ -19,7 +19,7 @@ function OrderAdmin  (props) {
       return () => {
         //
       };
-    }, [successDelete]);
+    }, [dispatch,successDelete]);
   
     const deleteHandler = (order) => {
       dispatch(deleteOrder(order._id));

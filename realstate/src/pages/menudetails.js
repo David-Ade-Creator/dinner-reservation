@@ -24,6 +24,9 @@ function Menudetails(props) {
   const menuReviewSave = useSelector((state) => state.menuReviewSave);
   const { success: menuSaveSuccess } = menuReviewSave;
 
+  const cart = useSelector(state =>state.cart);
+const {cartItems} = cart;
+
   const dispatch = useDispatch();
 
   useEffect(() =>{
@@ -74,10 +77,14 @@ function Menudetails(props) {
             )}
         </select>
         </h6>
-    {menu.countInStock > 0 ?
+    {cartItems.length >= 1 ? <div>{menu.countInStock > 0 ?
       <MDBBtn onClick={handleAddToCart} color="orange" >
                   add to reservation
-                </MDBBtn> : <div>Out of stock</div>}
+                </MDBBtn> : <div>Out of stock</div>}</div> 
+                : 
+                <div><Link to="/tables"><MDBBtn color="orange" >
+                  Select a table first
+                </MDBBtn></Link></div>}
 
                 <p className="mt-2 mb-2"><strong>Description</strong>:{menu.description}</p>
         <p>Note:All customers should come within reserved time. If customers fail to keep to time,

@@ -3,6 +3,8 @@ import { MDBCardBody, MDBCardImage } from 'mdbreact';
 import {listTables} from '../actions/tableActions';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import Loader from '../components/loader';
+import Rating from '../components/rating';
 
 
 
@@ -18,10 +20,10 @@ function TablePage(props) {
     return () => {
      //
     };
-  }, [])
+  }, [dispatch])
 
 
-  return loading ? <div>Loading...</div> : 
+  return loading ? <div><Loader/></div> : 
 error? <div>{error}</div> : (
     <div className="container-fluid mt-3">
       <div className="row">
@@ -35,6 +37,7 @@ error? <div>{error}</div> : (
         <MDBCardBody>
         <h5>{table.name}</h5>
           <h6>${table.price}</h6>
+          <Rating value={table.rating} />
         </MDBCardBody>
       </div>
     </div>

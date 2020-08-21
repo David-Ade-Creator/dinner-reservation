@@ -17,7 +17,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src="https://media-cdn.tripadvisor.com/media/photo-s/0e/6f/91/53/dinner-table-for-large.jpg"
+                src="https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/01/a0001540/img/basic/a0001540_main.jpg?20191223145353&q=80&rw=750&rh=536"
                 alt="First slide"
                 height="450px"
               />
@@ -27,7 +27,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src="https://upload.wikimedia.org/wikipedia/en/5/53/Foodporn_table_of_foodpood.jpg"
+                src="https://blogs.uoregon.edu/natewoodburyaad250/files/2012/10/PSD_Food_illustrations_3190_pancakes_with_butter-1wi1tz5.jpg"
                 alt="Second slide"
                 height="450px"
               />

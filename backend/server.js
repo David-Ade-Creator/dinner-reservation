@@ -1,5 +1,4 @@
 import express from 'express';
-import data from './data';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import config from './config';
@@ -9,7 +8,6 @@ import tableRoute from './routes/tableRoute';
 import menuRoute from './routes/menuRoute';
 import orderRoute from './routes/orderRoute';
 import uploadRoute from './routes/uploadRoute';
-dotenv.config();
 
 const mongodbUrl = config.MONGODB_URL;
 mongoose.connect(mongodbUrl, {
@@ -31,27 +29,11 @@ app.get('/api/config/paypal', (req, res) => {
   });
 
 
-//app.get("/api/menus/:id", (req,res) => {
- //   const productId = req.params.id;
-//    const menu = data.menus.find(x=>x._id === productId);
-//    if(menu)
-//    res.send(menu);
-//    else
-//    res.status(404).send({msg: "Menu Not Found"})
-//});
-
-app.get("/api/tables/:id", (req,res) => {
-    const productId = req.params.id;
-    const product = data.products.find(x=>x._id === productId);
-    if(product)
-    res.send(product);
-    else
-    res.status(404).send({msg: "Tables Not Found"})
-});
-
-//app.get("/api/tables", (req,res) => {
-//    res.send(data.products);
-//});
+  app.use('/uploads', express.static(path.join(__dirname, '/../uploads')));
+  app.use(express.static(path.join(__dirname, '/../realstate/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(`${__dirname}/../realstate/build/index.html`));
+  });
 
 app.listen(8000, () => {
     console.log("server started at http://localhost:8000")

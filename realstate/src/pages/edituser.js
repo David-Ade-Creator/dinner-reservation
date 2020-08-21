@@ -82,9 +82,9 @@ function Edituser(props) {
                     Update
                   </MDBBtn>
 
-                  <MDBBtn outline color="warning">
-                    <Link to="edit-user" className="clause2">Cancel</Link>
-                  </MDBBtn>
+                  <Link to="/profile" className="clause2"><MDBBtn outline color="warning">
+                   Cancel
+                  </MDBBtn></Link>
                 </div>
               </form>
             </MDBCardBody>

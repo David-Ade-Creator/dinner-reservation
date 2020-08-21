@@ -29,6 +29,15 @@
 	float:right;
 }
 
+
+.empty{
+	border: 1px solid orange;
+	height: 40vh;
+	background-image: url("https://lh3.googleusercontent.com/proxy/sX670zN2NJ30AsRFDp4-rC9br4_ytuJL-5LmR_eQ2sa7f2a9OM5fbJPaxZkPUj7_8oUDGtDZSnY6-KUz5UmnYr7eNLhr-pz9U2nfPewSKil822G0_MfPC7jo");
+}
+.empty h4{
+	color:white;
+}
 /* Rating */
 .rating span {
 	color: orange;
@@ -53,19 +62,12 @@
 .card-height{
 	height: 400px;
 }
-.offers{
-	display: flex;
-	justify-content: space-around;
-	overflow:scroll;
-	flex-direction: row;
-	width:100%;
-	margin-bottom: 30px;
-	-ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;
+
+
+ .scroll img{
+	width: 100%;
+	height: 200px;
 }
-.offers::-webkit-scrollbar {
-	display: none;
-  }
 
 .showreview{
 	display: flex;

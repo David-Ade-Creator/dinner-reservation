@@ -39,6 +39,12 @@ const min = today.toDateString()
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
+  const myOrderList = useSelector(state => state.myOrderList);
+    const { orders } = myOrderList;
+
+  const cart = useSelector(state =>state.cart);
+const {cartItems} = cart;
+
   useEffect(() => {
     if (tableSaveSuccess) {
       setRating(0);
@@ -63,9 +69,11 @@ const min = today.toDateString()
   };
   
   const handleAddToCart = () => {
-    
+    if (date) {
     props.history.push("/reservations/" + props.match.params.id + "?date=" + date );
-    
+    } else {
+      console.log('pick a date');
+    }
   }
 
 
@@ -88,10 +96,22 @@ const min = today.toDateString()
        name="reservation-time"
        onChange={(e)=>setDate(e.target.value)}
        min={min} max="2020-12-31T00:00" />
-     {table.countInStock > 0 ?
+    {orders.length >=1 ? 
+    <div><Link to="/profile"><MDBBtn color="orange" >
+     Already have a table Reserved
+    </MDBBtn></Link></div> : 
+     <div>
+       {cartItems.length >=1? 
+       <div><Link to="/reservations"><MDBBtn color="orange" >
+         Table already in Checklist
+       </MDBBtn></Link></div> : 
+       <div>{table.countInStock > 0 ?
        <MDBBtn onClick={handleAddToCart} color="orange" >
                    Reserve Table
-                 </MDBBtn> : <div>Not Available</div>}
+       </MDBBtn> : 
+       <div>Not Available</div>}
+       </div>}
+       </div>}
  
                  <p className="mt-2 mb-2"><strong>Description</strong>:{table.description}</p>
          <p>Note:All customers should come within reserved time. If customers fail to keep to time,

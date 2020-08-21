@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-import { listMyOrders } from '../actions/orderActions';
+import { listMyOrders, deleteOrder } from '../actions/orderActions';
 import { useDispatch, useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -13,14 +13,25 @@ function Profile(props) {
 
     const myOrderList = useSelector(state => state.myOrderList);
     const { loading: loadingOrders, orders, error: errorOrders } = myOrderList;
+
+    const orderDelete = useSelector(state => state.orderDelete);
+    const { success: successDelete } = orderDelete;
+  
     const dispatch = useDispatch();
 
     useEffect(() => {
+      if (successDelete){
+        dispatch(listMyOrders());
+      }
       dispatch(listMyOrders());
       return () => {
   
       };
-    }, [userInfo])
+    }, [userInfo,successDelete]);
+
+    const deleteHandler = (order) => {
+      dispatch(deleteOrder(order._id));
+    }
 
   return (
     <div className="container">
@@ -32,7 +43,7 @@ function Profile(props) {
           <p>____________________</p>
             <h6>Name: {userInfo.name}</h6>
             <h6>Email: {userInfo.email} </h6>
-          <MDBBtn color="orange"><Link to="/edit-user" className="clause">Edit</Link></MDBBtn>
+            <Link to="/edit-user" className="clause"><MDBBtn color="orange">Edit</MDBBtn></Link>
         </MDBCardBody>
       </MDBCard>
           </div>
@@ -40,8 +51,8 @@ function Profile(props) {
           <div className="col-lg-7 col-md-7 col-sm-12 col-12 mt-3">
       <MDBCard>
         <MDBCardBody>
-          <MDBBtn color="orange"><Link to="/meals" className="clause">Check Table</Link></MDBBtn>
-          <MDBBtn color="orange"><Link to="/reservations" className="clause">Reservations</Link></MDBBtn>
+        <Link to="/tables" className="clause"><MDBBtn color="orange">Check Table</MDBBtn></Link>
+          <Link to="/reservations" className="clause"><MDBBtn color="orange">Checklist</MDBBtn></Link>
         </MDBCardBody>
       </MDBCard>
           </div>
@@ -57,7 +68,8 @@ function Profile(props) {
             <h6>Time Booked: {order.createdAt.substring(0,10)}</h6>
             <h6>Total reservation fee:${order.totalPrice}</h6>
             <h6>Paid:{order.isPaid? "Yes" : "No"}</h6>
-          <MDBBtn color="orange"><Link to={"/order/" + order._id} className="clause">Details</Link></MDBBtn>
+            <Link to={"/order/" + order._id} className="clause"><MDBBtn color="orange">Details</MDBBtn></Link>
+            <MDBBtn onClick={()=>deleteHandler(order)} color="orange" outline>Cancel</MDBBtn>
         </MDBCardBody>
       </MDBCard>)
         }

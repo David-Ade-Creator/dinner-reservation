@@ -23,7 +23,7 @@ function Register(props) {
 
     };
     //
-  }, [userInfo])
+  }, [props.history,userInfo,redirect])
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -78,10 +78,12 @@ function Register(props) {
                   />
                 </div>
                 <div className=" py-4 mt-3">
-                  <MDBBtn color="cyan" type="submit">
+                  <MDBBtn color="orange" type="submit">
                     Register
                   </MDBBtn>
-                  <Link to={redirect === "/" ? "signin" : "signin?redirect" + redirect}> Sign In</Link>
+                  <Link to={redirect === "/" ? "signin" : "signin?redirect" + redirect}><MDBBtn color="orange" outline>
+                    Signin
+                  </MDBBtn></Link>
                 </div>
               </form>
             </MDBCardBody>
