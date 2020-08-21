@@ -2,8 +2,6 @@
 
 var _express = _interopRequireDefault(require("express"));
 
-var _data = _interopRequireDefault(require("./data"));
-
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _bodyParser = _interopRequireDefault(require("body-parser"));
@@ -24,8 +22,6 @@ var _uploadRoute = _interopRequireDefault(require("./routes/uploadRoute"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_dotenv.default.config();
-
 const mongodbUrl = _config.default.MONGODB_URL;
 
 _mongoose.default.connect(mongodbUrl, {
@@ -43,8 +39,8 @@ app.use("/api/menus", _menuRoute.default);
 app.use("/api/orders", _orderRoute.default);
 app.get('/api/config/paypal', (req, res) => {
   res.send(_config.default.PAYPAL_CLIENT_ID);
-});
-app.use('/uploads', _express.default.static(path.join(__dirname, '/../uploads')));
+}); // app.use('/uploads', express.static(path.join(__dirname, '/../uploads')));
+
 app.use(_express.default.static(path.join(__dirname, '/../realstate/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/../realstate/build/index.html`));
