@@ -16,7 +16,7 @@ function ProductAdmin  (props) {
     const [uploading,setUploading]= useState(false);
     const dispatch = useDispatch();
 
-    
+
 
     const menuList = useSelector(state =>state.menuList);
     const {loading,menus,error} =  menuList;
@@ -68,24 +68,24 @@ function ProductAdmin  (props) {
         );
       };
 
-      const uploadFileHandler = (e) => {
-        const file = e.target.files[0];
-        const bodyFormData = new FormData();
-        bodyFormData.append('image', file);
-        setUploading(true);
-        Axios.post('/api/uploads', bodyFormData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-          .then((response) => {
-            setImage(response.data);
-            setUploading(false);
-          })
-          .catch((err) => {
-            setUploading(false);
-          });
-      };
+  //    const uploadFileHandler = (e) => {
+  //      const file = e.target.files[0];
+  //      const bodyFormData = new FormData();
+  //      bodyFormData.append('image', file);
+  //      setUploading(true);
+  //      Axios.post('/api/uploads', bodyFormData, {
+  //          headers: {
+  //            'Content-Type': 'multipart/form-data',
+  //          },
+  //        })
+  //        .then((response) => {
+  //          setImage(response.data);
+  //          setUploading(false);
+  //        })
+  //        .catch((err) => {
+  //          setUploading(false);
+  //        });
+  //    };
 
   return (
       <div className="container-fluid">
