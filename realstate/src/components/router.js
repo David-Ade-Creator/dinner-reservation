@@ -1,8 +1,6 @@
 import React from 'react';
 import {Route,Switch} from 'react-router-dom';
 
-
-import Homepage from '../pages/homepage';
 import TablePage from '../pages/tablelist';
 import Tabledetails from '../pages/tabledetail';
 import Register from '../pages/signuppage';
@@ -30,8 +28,7 @@ function RouterPage(){
   return (
     <>
     <Switch>
-    <Route path="/" component={Homepage} exact />
-    <Route path="/tables" component={TablePage} exact/>
+    <Route path="/" component={TablePage} exact/>
     {userInfo && userInfo.isAdmin && <Route path="/productadmin" component={ProductAdmin} exact/> }
   {userInfo && userInfo.isAdmin && <Route path="/orderadmin" component={OrderAdmin} exact/> }
   {userInfo && userInfo.isAdmin && <Route path="/tableadmin" component={TableAdmin} exact/> }

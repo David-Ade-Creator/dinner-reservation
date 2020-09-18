@@ -39,12 +39,13 @@ app.use("/api/menus", _menuRoute.default);
 app.use("/api/orders", _orderRoute.default);
 app.get('/api/config/paypal', (req, res) => {
   res.send(_config.default.PAYPAL_CLIENT_ID);
-}); // app.use('/uploads', express.static(path.join(__dirname, '/../uploads')));
+}); 
+// app.use('/uploads', express.static(path.join(__dirname, '/../uploads')));
 
-app.use(_express.default.static(path.join(__dirname, '/../realstate/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(`${__dirname}/../realstate/build/index.html`));
-});
+//app.use(_express.default.static(path.join(__dirname, '/../realstate/build')));
+//app.get('*', (req, res) => {
+//  res.sendFile(path.join(`${__dirname}/../realstate/build/index.html`));
+//});
 app.listen(8000, () => {
   console.log("server started at http://localhost:8000");
 });

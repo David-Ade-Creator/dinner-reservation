@@ -1,5 +1,4 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import config from './config';
 import mongoose from 'mongoose';
@@ -29,11 +28,10 @@ app.get('/api/config/paypal', (req, res) => {
   });
 
 
- // app.use('/uploads', express.static(path.join(__dirname, '/../uploads')));
-  app.use(express.static(path.join(__dirname, '/../realstate/build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(`${__dirname}/../realstate/build/index.html`));
-  });
+//  app.use(express.static(path.join(__dirname, '/../realstate/build')));
+//  app.get('*', (req, res) => {
+//    res.sendFile(path.join(`${__dirname}/../realstate/build/index.html`));
+//  });
 
 app.listen(8000, () => {
     console.log("server started at http://localhost:8000")

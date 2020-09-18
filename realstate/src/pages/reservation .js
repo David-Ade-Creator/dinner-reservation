@@ -49,7 +49,7 @@ const {cartItems} = cart;
           cartItems.length === 0 ?
             <div className="col-lg-12 col-md-6 col-sm-12 col-12 mt-5 mb-5 empty">
               <h4 className="text-center mt-4">No Seats in your checklist</h4>
-              <div className="text-center"><Link to="/tables" className="clause"><MDBBtn color="orange" >
+              <div className="text-center"><Link to="/" className="clause"><MDBBtn color="orange" >
                       Check Tables
                     </MDBBtn></Link></div>
             </div> :

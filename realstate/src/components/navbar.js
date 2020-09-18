@@ -31,7 +31,7 @@ const logoutHandler = () => {
         <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
           <MDBNavbarNav left>
             <MDBNavItem active>
-              <MDBNavLink  onClick={toggleCollapse} to="/tables">Tables</MDBNavLink>
+              <MDBNavLink  onClick={toggleCollapse} to="/">Tables</MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
               <MDBNavLink onClick={toggleCollapse} to="/type/meal">Meals</MDBNavLink>
