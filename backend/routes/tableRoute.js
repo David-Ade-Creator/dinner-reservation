@@ -1,6 +1,6 @@
 import express from 'express';
-import Table from '../models/tableModel';
-import { isAuth, isAdmin } from '../util';
+import Table from '../models/tableModel.js';
+import { isAuth, isAdmin } from '../util.js';
 
 const router = express.Router();
 

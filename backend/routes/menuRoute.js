@@ -1,6 +1,6 @@
 import express from 'express';
-import Menu from '../models/menuModel';
-import { isAuth, isAdmin } from '../util';
+import Menu from '../models/menuModel.js';
+import { isAuth, isAdmin } from '../util.js';
 
 
 const router = express.Router();

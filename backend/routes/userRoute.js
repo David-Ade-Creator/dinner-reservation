@@ -1,6 +1,6 @@
 import express from 'express';
-import User from '../models/userModel';
-import { isAuth, getToken} from '../util';
+import User from '../models/userModel.js';
+import { isAuth, getToken} from '../util.js';
 
 const router = express.Router();
 
